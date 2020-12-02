@@ -31,6 +31,34 @@ fn solve_puzzle(path: &str) -> io::Result<i32> {
     ))
 }
 
+fn solve_puzzle_2(path: &str) -> io::Result<i32> {
+    // Parse each line and get an array of ints
+    let int_vec = get_ints(path);
+    let m_i_vec = int_vec?.to_owned();
+
+    for i in 0..m_i_vec.len() {
+        for j in (i + 1)..m_i_vec.len() {
+            for k in (j + 1)..m_i_vec.len() {
+                let i_num = m_i_vec.get(i).unwrap();
+                let j_num = m_i_vec.get(j).unwrap();
+                let k_num = m_i_vec.get(k).unwrap();
+
+                let sum = i_num + j_num + k_num;
+
+                if sum == EXPECTED_SUM {
+                    return Ok(i_num * j_num * k_num);
+                }
+            }
+        }
+    }
+    Err(Error::new(ErrorKind::InvalidInput,
+                   format!(
+                       "Input doesn't contain any number that sums to {}",
+                       EXPECTED_SUM
+                   )
+    ))
+}
+
 fn get_ints(path: &str) -> io::Result<Vec<i32>> {
     let f = File::open(path)?;
     let reader = BufReader::new(f);
