@@ -9,7 +9,7 @@ mod test;
     Returns the amount of passwords that do not respect
     the Official Toboggan Corporate Policy
  */
-fn solve_puzzle(path: &str) -> io::Result<i32> {
+pub(crate) fn solve_puzzle(path: &str) -> io::Result<i32> {
     // Parse each line and get an array of ints
     let passwords = get_passwords(path)?;
 
