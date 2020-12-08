@@ -62,14 +62,8 @@ fn solve_puzzle(path: &str) -> io::Result<i32> {
         contains: vec![]
     };
 
-    for (k, v) in parents_for_bag.borrow() {
-        println!("{} contains {:?}", k.name, format_bag_vec(v));
-    }
-
     let mut hs = HashSet::new();
     let result = count_parents(&mut hs, &needle, parents_for_bag.borrow());
-
-    println!("Outer colors: {:?}", parents_for_bag);
 
     Ok(result as i32)
 }
@@ -101,10 +95,6 @@ fn solve_puzzle_part_b(path: &str) -> io::Result<i32> {
 
 
     Ok(result as i32)
-}
-
-fn format_bag_vec(p0: &Vec<Bag>) -> String {
-    p0.iter().map(|x| x.name.to_owned()).collect::<Vec<_>>().join(", ")
 }
 
 fn count_parents(outer_colors: &mut HashSet<String>, ref_bag: &Bag, parents_for_bag: &HashMap<Bag, Vec<Bag>>) -> usize {

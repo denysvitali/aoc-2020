@@ -35,7 +35,7 @@ mod tests {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(1, result.unwrap());
+        assert_eq!(2, result.unwrap());
 
         Ok(())
     }
