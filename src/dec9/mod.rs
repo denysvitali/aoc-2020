@@ -10,7 +10,6 @@ mod test;
     Returns the accumulator value before a jump to an already seen instruction
  */
 fn solve_puzzle(path: &str, preamble_size: i32) -> io::Result<i64> {
-    println!("path={}, preamble_size={}", path, preamble_size);
     let f = File::open(path)?;
     let reader = BufReader::new(f);
 
@@ -27,9 +26,6 @@ fn solve_puzzle(path: &str, preamble_size: i32) -> io::Result<i64> {
         }
         line_nr += 1;
     }
-
-
-    println!("nums={:?}, path={}", nums, path);
 
     let mut preamble_sum: Vec<i64> = Vec::new();
     compute_preamble_sum(preamble.borrow(), preamble_sum.borrow_mut());
@@ -82,8 +78,6 @@ fn solve_part_b(path: &str, preamble_size: i32) -> io::Result<i64> {
     let reader = BufReader::new(f);
     let mut nums = Vec::new();
 
-    println!("target = {}", target);
-
     for line in reader.lines(){
         let l = line.unwrap();
         let n = l.parse::<i64>().unwrap();
@@ -92,9 +86,18 @@ fn solve_part_b(path: &str, preamble_size: i32) -> io::Result<i64> {
 
     for i in 0..nums.len() {
         let mut sum = 0;
+        let mut max = 0;
+        let mut min = i64::MAX;
         let mut num_set = Vec::new();
-        for j in i..nums.len(){
+        for j in i+1..nums.len(){
             let new_num = nums.get(j).unwrap();
+            if *new_num < min {
+                min = *new_num;
+            }
+            if *new_num > max {
+                max = *new_num;
+            }
+
             if sum + new_num < target {
                 num_set.push(new_num);
                 sum += new_num;
@@ -103,11 +106,9 @@ fn solve_part_b(path: &str, preamble_size: i32) -> io::Result<i64> {
             } else {
                 // Found it!
                 println!("range = {} - {}, {:?}, {}", i, j, &nums[i..j], target);
-                let smallest = *nums[i..j].iter().min().unwrap();
-                let largest = *nums[i..j].iter().max().unwrap();
-                println!("smallest = {}", smallest);
-                println!("largest = {}", largest);
-                return Ok(smallest + largest)
+                println!("smallest = {}", min);
+                println!("largest = {}", max);
+                return Ok(min + max)
             }
         }
     }

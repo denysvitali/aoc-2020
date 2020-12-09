@@ -25,7 +25,7 @@ mod tests {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(127, result.unwrap());
+        assert_eq!(27911108, result.unwrap());
 
         Ok(())
     }
@@ -51,7 +51,7 @@ mod tests {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(-1, result.unwrap());
+        assert_eq!(4023754, result.unwrap());
 
         Ok(())
     }
