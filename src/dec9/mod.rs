@@ -2,12 +2,11 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::io;
 use std::borrow::{Borrow, BorrowMut};
-// use num_integer::binomial;
 
 mod test;
 
 /*
-    Returns the accumulator value before a jump to an already seen instruction
+    Returns the outlier that doesn't respect the rule
  */
 fn solve_puzzle(path: &str, preamble_size: i32) -> io::Result<i64> {
     let f = File::open(path)?;
@@ -40,32 +39,6 @@ fn solve_puzzle(path: &str, preamble_size: i32) -> io::Result<i64> {
         preamble.push(n);
         compute_preamble_sum(preamble.borrow(), preamble_sum.borrow_mut());
     }
-
-
-
-    // let slice_size = binomial(preamble_size, 1);
-    // let preamble_combination_size = binomial(preamble_size, 2);
-    // println!("slice_size={}", slice_size);
-    //
-    // for (i, n) in nums.iter().enumerate() {
-    //     println!("iter: {}, {}", i, n);
-    //     if !preamble_sum.iter().any(|&x|x==*n) {
-    //         return Ok(*n)
-    //     }
-    //     // New preamble_sum will be [1 preamble_size + 1]
-    //     println!("preamble_sum before = {:?}, len = {}", preamble_sum, preamble_sum.len());
-    //     preamble_sum = Vec::from(&preamble_sum[(slice_size as usize)-1..(preamble_combination_size as usize)]);
-    //     println!("preamble_sum after = {:?}, len = {}", preamble_sum, preamble_sum.len());
-    //     preamble = Vec::from(&preamble[1..preamble_size as usize]);
-    //
-    //     let prev_num = *nums.get(i).unwrap();
-    //     for j in preamble.iter() {
-    //         println!("{} + {} = {}", prev_num, j, prev_num + j);
-    //         preamble_sum.push(prev_num + j);
-    //     }
-    //     preamble.push(prev_num);
-    //     println!("preamble_sum after_2 = {:?}, len = {}", preamble_sum, preamble_sum.len());
-    // }
 
     Err(Error::new(ErrorKind::InvalidInput,
                    "all numbers are summing to something in preamble_sum")
