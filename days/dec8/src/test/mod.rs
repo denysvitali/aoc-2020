@@ -1,57 +1,57 @@
 #[cfg(test)]
 mod tests {
-    use crate::dec12::{solve_puzzle};
+    use crate::{solve_puzzle, solve_puzzle_part_b};
     use std::io::Error;
-    use crate::utils::get_file;
+    use utils::get_file;
 
     #[test]
-    fn test_example() -> Result<(), Error>{
+    fn test_example_instructions() -> Result<(), Error>{
         let f = get_file(file!(), "1.txt");
-        let result = solve_puzzle(f.as_str(), (0,0), false);
+        let result = solve_puzzle(f.as_str());
         if result.is_err() {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(25, result.unwrap());
+        assert_eq!(5, result.unwrap());
 
         Ok(())
     }
 
     #[test]
-    fn test_puzzle() -> Result<(), Error>{
+    fn test_puzzle_instructions() -> Result<(), Error>{
         let f = get_file(file!(), "2.txt");
-        let result = solve_puzzle(f.as_str(), (0,0), false);
+        let result = solve_puzzle(f.as_str());
         if result.is_err() {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(1496, result.unwrap());
+        assert_eq!(1749, result.unwrap());
 
         Ok(())
     }
 
     #[test]
-    fn test_example_part_b() -> Result<(), Error>{
+    fn test_part_b_example() -> Result<(), Error>{
         let f = get_file(file!(), "1.txt");
-        let result = solve_puzzle(f.as_str(), (10,1), true);
+        let result = solve_puzzle_part_b(f.as_str());
         if result.is_err() {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(286, result.unwrap());
+        assert_eq!(8, result.unwrap());
 
         Ok(())
     }
 
     #[test]
-    fn test_puzzle_part_b() -> Result<(), Error>{
+    fn test_part_b_puzzle() -> Result<(), Error>{
         let f = get_file(file!(), "2.txt");
-        let result = solve_puzzle(f.as_str(), (10,1), true);
+        let result = solve_puzzle_part_b(f.as_str());
         if result.is_err() {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(63843, result.unwrap());
+        assert_eq!(515, result.unwrap());
 
         Ok(())
     }

@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::dec10::{solve_puzzle, solve_part_b};
+    use crate::{solve_puzzle, solve_part_b};
     use std::io::Error;
-    use crate::utils::get_file;
+    use utils::get_file;
 
     #[test]
     fn test_example() -> Result<(), Error>{
@@ -13,7 +13,6 @@ mod tests {
         }
 
         assert_eq!(7*5, result.unwrap());
-
         Ok(())
     }
 
@@ -26,7 +25,6 @@ mod tests {
         }
 
         assert_eq!(22*10, result.unwrap());
-
         Ok(())
     }
 
@@ -39,7 +37,6 @@ mod tests {
         }
 
         assert_eq!(2376, result.unwrap());
-
         Ok(())
     }
 
@@ -52,7 +49,6 @@ mod tests {
         }
 
         assert_eq!(8, result.unwrap());
-
         Ok(())
     }
 
@@ -65,7 +61,6 @@ mod tests {
         }
 
         assert_eq!(19208, result.unwrap());
-
         Ok(())
     }
 
@@ -77,8 +72,7 @@ mod tests {
             return Err(result.err().unwrap());
         }
 
-        assert_eq!(1, result.unwrap());
-
+        assert_eq!(129586085429248, result.unwrap());
         Ok(())
     }
 }

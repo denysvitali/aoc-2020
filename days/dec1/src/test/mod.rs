@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::dec1::{solve_puzzle, get_ints, solve_puzzle_2};
+    use crate::{solve_puzzle, get_ints, solve_puzzle_2};
     use std::io::Error;
-    use crate::utils::get_file;
+    use utils::get_file;
 
     #[test]
     fn test_get_ints() -> Result<(), Error> {

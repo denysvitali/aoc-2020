@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::dec7::{solve_puzzle, parse_bag_line, Bag, solve_puzzle_part_b};
+    use crate::{solve_puzzle, parse_bag_line, Bag, solve_puzzle_part_b};
     use std::io::Error;
-    use crate::utils::get_file;
+    use utils::get_file;
 
     #[test]
     fn test_parse_bag() {

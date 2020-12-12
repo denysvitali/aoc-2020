@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::dec2::{solve_puzzle, get_passwords, PasswordPolicy, solve_puzzle_2};
+    use crate::{solve_puzzle, get_passwords, PasswordPolicy, solve_puzzle_2};
     use std::io::Error;
-    use crate::utils::get_file;
+    use utils::get_file;
 
     #[test]
     fn test_get_passwords() -> Result<(), Error> {
