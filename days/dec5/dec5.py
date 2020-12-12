@@ -1,8 +1,8 @@
 import re
 import math
 
-example = open("./example.txt").readlines()
-puzzle = open("./puzzle.txt").readlines()
+example = open("example.txt").readlines()
+puzzle = open("puzzle.txt").readlines()
 
 problem_input = puzzle
 

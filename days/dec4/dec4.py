@@ -1,7 +1,7 @@
 import re
 
-example = "".join(open("./example.txt").readlines())
-puzzle = "".join(open("./puzzle.txt").readlines())
+example = "".join(open("example.txt").readlines())
+puzzle = "".join(open("puzzle.txt").readlines())
 
 input = puzzle
 
