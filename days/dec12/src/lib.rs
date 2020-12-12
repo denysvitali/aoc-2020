@@ -62,8 +62,10 @@ fn solve_puzzle(path: &str,
         commands.push((dir, cap.get(2).unwrap().as_str().parse::<i32>().unwrap()));
     }
 
-    let start_dir = Direction::East;
-    let end_pos = interpret_commands(commands, waypoint_pos, &start_dir, waypoint_nav);
+    let end_pos = interpret_commands(commands,
+                                     waypoint_pos,
+                                     &Direction::East,
+                                     waypoint_nav);
     Ok(manhattan_distance((0,0), end_pos))
 }
 
@@ -131,7 +133,6 @@ fn interpret_commands(commands: Vec<(Command, i32)>,
 
 fn rot_wp(wp: &mut (i32, i32), deg: i32) {
     let mut factor = deg/90;
-    if factor == 0 { return }
     let cw = factor >= 0;
     factor = factor.abs();
 
