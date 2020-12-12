@@ -57,15 +57,11 @@ fn find_combinations(nums: Vec<i64>) -> i64 {
 
 fn inner_find_combinations(nums: Vec<i64>, combinations: &mut HashMap<i64, i64>) -> i64 {
     for i in &nums[1..] {
-        println!("i={}", i);
-        let a = combinations.get(&(i-1)).unwrap_or(&0);
-        let b = combinations.get(&(i-2)).unwrap_or(&0);
-        let c = combinations.get(&(i-3)).unwrap_or(&0);
-        println!("a+b+c={}", a+b+c);
+        let a = *combinations.get_mut(&(i-1)).unwrap_or(&mut 0);
+        let b = *combinations.get_mut(&(i-2)).unwrap_or(&mut 0);
+        let c = *combinations.get_mut(&(i-3)).unwrap_or(&mut 0);
         combinations.insert(*i, a+b+c);
     }
-
-    println!("combinations: {:?}", combinations);
     return *combinations.get(nums.iter().max().unwrap()).unwrap();
 }
 

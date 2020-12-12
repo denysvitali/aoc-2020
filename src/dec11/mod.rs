@@ -1,10 +1,11 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader, Error, ErrorKind};
+use std::io::{BufRead, BufReader};
 use std::io;
-use std::iter::Sum;
 use std::borrow::Borrow;
 
 mod test;
+
+const DEBUG : bool = false;
 
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
 enum SeatStatus {
@@ -34,19 +35,17 @@ fn solve_puzzle(path: &str, min_adj: i32) -> io::Result<i64> {
         pos.push(row);
     }
 
-    let mut last_result : Vec<Vec<SeatStatus>> = Vec::new();
-    let mut iter = 0;
+    let last_result : Vec<Vec<SeatStatus>>;
     loop {
         let (result, changed) = do_iter(pos.borrow(), min_adj);
+        if DEBUG {
+            println!("{}", pretty_result(&result));
+        }
         if !changed {
             last_result = result;
             break
         }
-
         pos = result;
-
-        //println!("{}", pretty_result(&pos));
-        iter += 1;
     }
 
     return Ok(last_result.iter()
@@ -140,25 +139,19 @@ fn count_adj(pos: &Vec<Vec<SeatStatus>>, x: usize, y: usize, consider_full_line:
 
     let mut occupied_seats = 0;
     for i in pos_arr {
-        let mut seat_found = false;
         let mut seat_value: Option<SeatStatus> = None;
         let mut j = 1;
-        while !seat_found {
-            let new_x = (x as i32 + i.0 * j);
-            let new_y = (y as i32 + i.1 * j);
-
-            //println!("seat_found loop ({},{})", new_x, new_y);
-
+        loop {
+            let new_x = x as i32 + i.0 * j;
+            let new_y = y as i32 + i.1 * j;
             j += 1;
 
             if !is_valid_pos(new_x, new_y, limit_x, limit_y) {
-                seat_found = true;
                 break
             }
 
             seat_value = Some(pos_at(pos, new_x, new_y).clone());
-            if !seat_value.unwrap().eq(&SeatStatus::Floor){
-                seat_found = true;
+            if !seat_value.unwrap().eq(&SeatStatus::Floor) {
                 break
             }
         }
@@ -175,10 +168,4 @@ fn count_adj(pos: &Vec<Vec<SeatStatus>>, x: usize, y: usize, consider_full_line:
     }
 
     return occupied_seats
-}
-
-fn solve_part_b(path: &str) -> io::Result<i64> {
-    Err(Error::new(ErrorKind::InvalidInput,
-                   "all numbers are summing to something in preamble_sum")
-    )
 }

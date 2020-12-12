@@ -5,6 +5,7 @@ mod dec8;
 mod dec9;
 mod dec10;
 mod dec11;
+mod dec12;
 mod utils;
 
 extern crate regex;
