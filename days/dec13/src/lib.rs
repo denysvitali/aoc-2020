@@ -83,32 +83,10 @@ fn solve_puzzle_part_b(path: &str) -> Result<i64, io::Error> {
         .filter(|x|x!=&1)
         .collect::<Vec<i64>>();
 
-    let reminders = bus_list.iter().enumerate()
-        .map(|x|if x.1 != &-1 { x.1 + x.0 as i64 } else { -1 })
-        .filter(|x|x!=&-1)
-        .collect::<Vec<i64>>();
-
     let buses = bus_list.iter().enumerate()
         .map(|x|if x.1 != &-1 { *x.1 as i64 } else { -1 as i64 })
         .filter(|x|x!=&-1)
         .collect::<Vec<i64>>();
-
-    // x = timestamp
-    // x + 0 mod 7 = 0
-    // x + 1 mod 13 = 0
-    // x + 4 mod 59 = 0
-    // x + 6 mod 31 = 0
-    // x + 7 mod 19 = 0
-
-    // x mod 7 = 0
-    // x mod 13 = -1
-    // x mod 59 = -4
-    // x mod 31 = -6
-    // x mod 19 = -7
-
-    println!("buses: {:?}", buses);
-    println!("diff: {:?}", diff);
-    println!("reminders: {:?}", reminders);
 
     let cr = crt(&diff[..], &buses[..]);
     return Ok(cr.unwrap());
