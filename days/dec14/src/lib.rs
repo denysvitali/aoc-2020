@@ -2,6 +2,9 @@ extern crate ansi_term;
 extern crate itertools;
 extern crate regex;
 
+#[macro_use]
+extern crate bencher;
+
 use std::collections::HashMap;
 use std::fs::File;
 use std::io;
@@ -10,6 +13,8 @@ use std::io::{BufRead, BufReader};
 use regex::{Match, Regex};
 
 use crate::InstructionType::{Mask, Mem};
+use bencher::Bencher;
+use utils::get_file;
 
 mod test;
 
@@ -31,7 +36,7 @@ struct InstructionV2 {
     v3: u64,
 }
 
-fn solve_puzzle(path: &str) -> Result<u64, io::Error> {
+pub fn solve_puzzle(path: &str) -> Result<u64, io::Error> {
     let f = File::open(path)?;
     let reader = BufReader::new(f);
     let lines = reader.lines();
@@ -49,7 +54,7 @@ fn solve_puzzle(path: &str) -> Result<u64, io::Error> {
             instructions.push(Instruction {
                 t: InstructionType::Mem,
                 v: must_get_u64(cap.get(1)),
-                v2: must_get_u64(cap.get(2))
+                v2: must_get_u64(cap.get(2)),
             })
         }
     }
@@ -60,7 +65,10 @@ fn solve_puzzle(path: &str) -> Result<u64, io::Error> {
 
     for i in instructions {
         match i.t {
-            Mask => { or_mask = i.v; and_mask = i.v2; }
+            Mask => {
+                or_mask = i.v;
+                and_mask = i.v2;
+            }
             Mem => { mem.insert(i.v, (i.v2 | or_mask) & and_mask); }
         }
     }
@@ -77,7 +85,7 @@ fn get_mask_v<'a>(mask_re: &Regex, the_line: &'a String) -> &'a str {
     mask_v
 }
 
-fn solve_puzzle_part_b(path: &str) -> Result<u64, io::Error> {
+pub fn solve_puzzle_part_b(path: &str) -> Result<u64, io::Error> {
     let f = File::open(path)?;
     let reader = BufReader::new(f);
     let lines = reader.lines();
