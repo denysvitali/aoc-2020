@@ -49,9 +49,8 @@ fn solve_puzzle(path: &str) -> Result<u64, io::Error> {
             instructions.push(Instruction {
                 t: InstructionType::Mem,
                 v: must_get_u64(cap.get(1)),
-                v2: must_get_u64(cap.get(2)),
-            }
-            )
+                v2: must_get_u64(cap.get(2))
+            })
         }
     }
 
