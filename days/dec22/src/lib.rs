@@ -26,8 +26,25 @@ fn solve_puzzle(path: &str) -> Result<i32, Box<dyn Error + 'static>> {
         .map(|(i, v)| v * (winner.deck.len() - i) as i32)
         .sum();
 
-    dbg!(&score);
+    Ok(score)
+}
 
+fn solve_puzzle_2(path: &str) -> Result<i32, Box<dyn Error + 'static>> {
+    let file_content = read_to_string(path)?;
+    let mut players: Vec<Player> = file_content.split("\n\n")
+        .map(String::from)
+        .map(parse_player)
+        .collect();
+
+    dbg!(&players);
+    let winner = play_2(&mut players);
+
+    // Calculate score
+    let score: i32 = winner.deck.iter().enumerate()
+        .map(|(i, v)| v * (winner.deck.len() - i) as i32)
+        .sum();
+
+    dbg!(&score);
     Ok(score)
 }
 
@@ -80,6 +97,18 @@ fn play(players: &mut Vec<Player>) -> Player {
     }
     
 }
+
+fn play_2(players: &mut Vec<Player>) -> Player {
+    let mut round = 1;
+    let mut prev_rounds: Vec<i32> = Vec::new();
+
+    loop {
+        // TODO: Implement
+        unimplemented!("not implemented yet")
+    }
+    
+}
+
 
 fn parse_player(player_text: String) -> Player {
     let split: Vec<String> = player_text.split("\n").map(String::from).collect();
